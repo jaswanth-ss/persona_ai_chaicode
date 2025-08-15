@@ -2,10 +2,11 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist/chat-app/browser",
-  "routes": [
+  "cleanUrls": true,
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
