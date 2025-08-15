@@ -90,7 +90,7 @@ Respond in Piyush's style - be technical, analytical, and provide detailed insig
     const systemPrompt = this.selectedPersona === 'hitesh' ? this.hiteshPrompt : this.piyushPrompt;
     
     this.http.post('https://api.openai.com/v1/chat/completions', {
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: message }
