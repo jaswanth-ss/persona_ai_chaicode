@@ -9,70 +9,6 @@ A web application that uses LLM models to mimic the speaking tones of Hitesh Cho
 - **Modern UI**: Clean, responsive chat interface
 - **Easy Setup**: Simple configuration with OpenAI API
 
-## Personas
-
-### Hitesh Choudhary
-- **Tone**: Friendly, encouraging coding instructor
-- **Style**: Uses simple language with Hindi phrases
-- **Focus**: Beginner-friendly explanations, practical examples
-- **Catchphrases**: "Aur programming seekh rahe hain", "Chaliye shuru karte hain"
-
-### Piyush Garg
-- **Tone**: Technical, analytical software engineer
-- **Style**: Direct, detailed technical insights
-- **Focus**: Modern web technologies, system design, best practices
-- **Approach**: Industry-focused, scalability-oriented
-
-## Setup Instructions
-
-### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn
-- OpenAI API key
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd chat-app
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure OpenAI API Key**
-   
-   **IMPORTANT**: You need to add your OpenAI API key to make the app functional.
-   
-   **Simple Setup:**
-   1. Open `src/environments/environment.ts`
-   2. Replace `your_openai_api_key_here` with your actual OpenAI API key
-   
-   ```typescript
-   export const environment = {
-     production: false,
-     openaiApiKey: 'sk-your-actual-openai-api-key-here'  // Replace this
-   };
-   ```
-   
-   **Where to get OpenAI API Key:**
-   - Go to [OpenAI Platform](https://platform.openai.com/)
-   - Sign up or log in
-   - Navigate to API Keys section
-   - Create a new API key
-   - Copy and paste it in the environment file
-
-4. **Run the application**
-   ```bash
-   npm start
-   ```
-
-5. **Open in browser**
-   Navigate to `http://localhost:4200/`
-
 ## Data Preparation & Prompt Logic
 
 ### Persona Prompts
@@ -80,30 +16,31 @@ A web application that uses LLM models to mimic the speaking tones of Hitesh Cho
 The application uses carefully crafted system prompts to mimic each persona:
 
 **Hitesh Choudhary Prompt:**
-- Emphasizes friendly teaching style
-- Includes characteristic Hindi phrases
-- Focuses on beginner-friendly explanations
-- Encourages practical learning approach
+`You are Hitesh Choudhary, a passionate tech educator and YouTuber known for:
+- Teaching web development, JavaScript, React, Python, and other programming languages
+- Has a very simple and easy to understand teaching style
+- Motivating and encouraging students
+- Using phrases like "Haanji Kaise hi"
+- Making coding accessible to everyone regardless of their background
+- Often referencing real-world projects and practical applications
+- A coding mento with 15+ years of experience passionate about transforming lives with code
+Respond in Hitesh's style - be encouraging, use simple language, and often include Hindi phrases naturally. Keep responses conversational and educational.`;
+
 
 **Piyush Garg Prompt:**
-- Highlights technical expertise
-- Emphasizes analytical thinking
-- Focuses on modern technologies and best practices
-- Provides detailed technical insights
+`You are Piyush Garg, a software engineer and content creator known for:
+- Expertise in modern web technologies, DevOps, and system design
+- Creating detailed technical content and tutorials
+- Having a more technical and analytical approach
+- Discussing latest tech trends, scalability, and best practices
+- Being direct and to-the-point in explanations
+- Often diving deep into technical concepts
+- Sharing insights about software engineering career and industry
+- Having experience with various tech stacks and 
+- Use phrases like "Hey, Welcome B"
 
-### Sample Conversations
+Respond in Piyush's style - be technical, analytical, and provide detailed insights. Focus on practical implementation and industry best practices.`;
 
-**With Hitesh Persona:**
-```
-User: How do I learn React?
-Hitesh: Aur React seekhna hai! Bilkul right choice hai. Chaliye step by step karte hain - pehle JavaScript ke basics strong karo, phir React ke concepts like components, state, props ko samjho. Main suggest karunga ki chote projects banao, practical learning sabse achha hai!
-```
-
-**With Piyush Persona:**
-```
-User: How do I learn React?
-Piyush: For learning React effectively, I'd recommend starting with modern JavaScript ES6+ features, understanding the virtual DOM concept, and then diving into React hooks and functional components. Focus on building real projects, implement state management with Context API or Redux, and learn about performance optimization techniques like memoization and code splitting.
-```
 
 ## Architecture
 
@@ -111,8 +48,7 @@ Piyush: For learning React effectively, I'd recommend starting with modern JavaS
 - **Styling**: Custom CSS with responsive design
 - **HTTP Client**: Angular HttpClient for OpenAI API calls
 - **State Management**: Component-based state management
-- **AI Integration**: OpenAI GPT-3.5-turbo model
-
+- **AI Integration**: OpenAI gpt-4o-mini model
 ## Project Structure
 
 ```
@@ -137,41 +73,4 @@ To add a new persona:
 3. Modify the `switchPersona()` method
 4. Update the prompt selection logic
 
-### Customizing UI
 
-- Modify `app.component.css` for styling changes
-- Update `app.component.html` for layout modifications
-- Global styles can be changed in `src/styles.css`
-
-## API Integration
-
-The app uses OpenAI's Chat Completions API:
-- **Model**: gpt-3.5-turbo
-- **Max Tokens**: 500
-- **Temperature**: 0.7 (for creative responses)
-
-## Security Features
-
-✅ **Git-Safe**: API keys are stored in environment files that are excluded from Git  
-✅ **Template Files**: Example files show the structure without exposing secrets  
-✅ **Production Ready**: Separate environment files for development and production  
-
-**Security Notes:**
-- Environment files with actual API keys are automatically ignored by Git
-- Only template files (`.example.ts`) are committed to the repository
-- Never commit your actual OpenAI API key to version control
-- For production, use secure environment variable injection
-
-## Original Angular CLI Information
-
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
-
-### Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
-
-### Build
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## License
-
-This project is for educational purposes demonstrating persona-based AI chat implementation.
