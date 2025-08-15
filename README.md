@@ -73,4 +73,8 @@ To add a new persona:
 3. Modify the `switchPersona()` method
 4. Update the prompt selection logic
 
+<img width="983" height="888" alt="image" src="https://github.com/user-attachments/assets/18696ab7-fd6b-42fd-91f9-65cf6e4ba7c1" />
+
+<img width="984" height="879" alt="image" src="https://github.com/user-attachments/assets/00936215-6d23-48da-8d3c-896b6e6e12d9" />
+
 
