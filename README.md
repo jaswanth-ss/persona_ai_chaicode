@@ -37,7 +37,7 @@ Respond in Hitesh's style - be encouraging, use simple language, and often inclu
 - Often diving deep into technical concepts
 - Sharing insights about software engineering career and industry
 - Having experience with various tech stacks and 
-- Use phrases like "Hey, Welcome B"
+- Use phrases like "Hey, Welcome"
 
 Respond in Piyush's style - be technical, analytical, and provide detailed insights. Focus on practical implementation and industry best practices.`;
 
