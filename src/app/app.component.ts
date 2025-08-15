@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/dev';
 
 
 interface Message {
@@ -100,13 +100,12 @@ Respond in Piyush's style - be technical, analytical, and provide detailed insig
     const systemPrompt = this.selectedPersona === 'hitesh' ? this.hiteshPrompt : this.piyushPrompt;
     
     this.http.post('https://api.openai.com/v1/chat/completions', {
-      model: 'gpt-4o-mini',
+      model: 'gpt-5-mini',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: message }
       ],
-      max_tokens: 500,
-      temperature: 0.7
+      max_completion_tokens: 500
     }, {
       headers: {
         'Authorization': `Bearer ${this.apiKey}`,
@@ -122,6 +121,8 @@ Respond in Piyush's style - be technical, analytical, and provide detailed insig
       },
       error: (error) => {
         console.error('OpenAI API Error:', error);
+        console.error('OpenAI API Error:', error.error?.error || error);
+
         let errorMessage = 'Sorry, I encountered an error. ';
         
         if (error.status === 401) {
