@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Replace environment variables in production environment file
-const envProdPath = path.join(__dirname, 'src', 'environments', 'environment.prod.ts');
+const envProdPath = path.join(__dirname, 'src', 'environments', 'prod.ts');
 const apiKey = process.env.OPENAI_API_KEY || '';
 
 if (fs.existsSync(envProdPath)) {
