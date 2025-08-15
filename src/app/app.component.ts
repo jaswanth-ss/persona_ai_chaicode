@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
+
 interface Message {
   text: string;
   isUser: boolean;
@@ -87,6 +88,15 @@ Respond in Piyush's style - be technical, analytical, and provide detailed insig
   }
 
   private getPersonaResponse(message: string) {
+    if (!this.apiKey) {
+      this.messages.push({
+        text: 'API key is not configured. Please set your OpenAI API key in the environment configuration.',
+        isUser: false,
+        persona: this.selectedPersona
+      });
+      return;
+    }
+
     const systemPrompt = this.selectedPersona === 'hitesh' ? this.hiteshPrompt : this.piyushPrompt;
     
     this.http.post('https://api.openai.com/v1/chat/completions', {
@@ -111,8 +121,21 @@ Respond in Piyush's style - be technical, analytical, and provide detailed insig
         });
       },
       error: (error) => {
+        console.error('OpenAI API Error:', error);
+        let errorMessage = 'Sorry, I encountered an error. ';
+        
+        if (error.status === 401) {
+          errorMessage += 'Invalid API key. Please check your OpenAI API key configuration.';
+        } else if (error.status === 429) {
+          errorMessage += 'Rate limit exceeded. Please try again later.';
+        } else if (error.status === 0) {
+          errorMessage += 'Network error. Please check your internet connection.';
+        } else {
+          errorMessage += 'Please try again later.';
+        }
+        
         this.messages.push({
-          text: 'Sorry, I encountered an error. Please check your API key and try again.',
+          text: errorMessage,
           isUser: false,
           persona: this.selectedPersona
         });
