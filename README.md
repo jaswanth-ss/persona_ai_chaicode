@@ -1,4 +1,4 @@
-# Persona Chat App
+# [Persona Chat App](https://persona-ai-chaicode.vercel.app/)
 
 A web application that uses LLM models to mimic the speaking tones of Hitesh Choudhary and Piyush Garg. Built with Angular and integrated with OpenAI gpt-4o-mini.
 
