@@ -5,6 +5,10 @@ export default async function handler(req, res) {
   
     const { prompt } = req.body;
   
+    if (!prompt) {
+      return res.status(400).json({ error: 'Prompt is required' });
+    }
+  
     const apiKey = process.env.OPENAI_API_KEY;
   
     if (!apiKey) {
@@ -19,12 +23,23 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [{ role: 'user', content: prompt }]
+          model: 'gpt-4o-mini',
+          messages: [{ role: 'user', content: prompt }],
+          max_tokens: 500,
+          temperature: 0.7
         })
       });
+
+      if (!openaiRes.ok) {
+        const errorData = await openaiRes.json();
+        console.error('OpenAI API Error:', errorData);
+        return res.status(openaiRes.status).json({ error: errorData.error || 'OpenAI API error' });
+      }
   
       const data = await openaiRes.json();
+      
+      // Log the response for debugging
+      console.log('OpenAI Response:', JSON.stringify(data, null, 2));
   
       res.status(200).json(data);
     } catch (error) {

@@ -26,7 +26,7 @@ export class AppComponent {
   private hiteshMessages: Message[] = [];
   private piyushMessages: Message[] = [];
   
-  private apiKey = environment.openaiApiKey;
+
   
   private hiteshPrompt = `You are Hitesh Choudhary, a passionate tech educator and YouTuber known for:
 - Teaching web development, JavaScript, React, Python, and other programming languages
@@ -36,6 +36,10 @@ export class AppComponent {
 - Making coding accessible to everyone regardless of their background
 - Often referencing real-world projects and practical applications
 - A coding mento with 15+ years of experience passionate about transforming lives with code
+- Has two youtube channels one is "Chai Aur Code"(https://www.youtube.com/@chaiaurcode) and other is Hitesh Choudhary(https://www.youtube.com/@HiteshCodeLab)
+- Twitter handle is https://x.com/Hiteshdotcom
+- https://hitesh.ai/ is his website
+- Go through his youtube channel, webiste and twitter handle to get the context of his personality
 Respond in Hitesh's style - be encouraging, use simple language, and often include Hindi phrases naturally. Keep responses conversational and educational.`;
 
   private piyushPrompt = `You are Piyush Garg, a software engineer and content creator known for:
@@ -48,6 +52,10 @@ Respond in Hitesh's style - be encouraging, use simple language, and often inclu
 - Sharing insights about software engineering career and industry
 - Having experience with various tech stacks and 
 - Use phrases like "Hey, Welcome Back"
+- Has a youtube channel https://www.youtube.com/@piyushgargdev
+- Twitter handle is https://x.com/piyushgarg_dev
+- https://hitesh.ai/ is his website
+- Go through his youtube channel, webiste and twitter handle to get the context of his personality
 
 Respond in Piyush's style - be technical, analytical, and provide detailed insights. Focus on practical implementation and industry best practices.`;
 
@@ -79,58 +87,47 @@ Respond in Piyush's style - be technical, analytical, and provide detailed insig
     }
   }
 
-  getMessageCount(persona: string): number {
-    if (persona === 'hitesh') {
-      return this.hiteshMessages.length;
-    } else {
-      return this.piyushMessages.length;
-    }
-  }
 
   private getPersonaResponse(message: string) {
-    if (!this.apiKey) {
-      this.messages.push({
-        text: 'API key is not configured. Please set your OpenAI API key in the environment configuration.',
-        isUser: false,
-        persona: this.selectedPersona
-      });
-      return;
-    }
-
     const systemPrompt = this.selectedPersona === 'hitesh' ? this.hiteshPrompt : this.piyushPrompt;
     
-    this.http.post('https://api.openai.com/v1/chat/completions', {
-      model: 'gpt-5-mini',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: message }
-      ],
-      max_completion_tokens: 500
-    }, {
-      headers: {
-        'Authorization': `Bearer ${this.apiKey}`,
-        'Content-Type': 'application/json'
-      }
+    // Combine system prompt with user message for the API
+    const fullPrompt = `${systemPrompt}\n\nUser: ${message}\n\nAssistant:`;
+    
+    this.http.post('/api/openai', {
+      prompt: fullPrompt
     }).subscribe({
       next: (response: any) => {
+        console.log('API Response:', response);
+        
+        let responseText = '';
+        if (response.choices && response.choices[0] && response.choices[0].message) {
+          responseText = response.choices[0].message.content;
+        } else if (response.choices && response.choices[0] && response.choices[0].text) {
+          responseText = response.choices[0].text;
+        } else {
+          responseText = 'Sorry, I received an empty response. Please try again.';
+        }
+        
         this.messages.push({
-          text: response.choices[0].message.content,
+          text: responseText.trim(),
           isUser: false,
           persona: this.selectedPersona
         });
       },
       error: (error) => {
-        console.error('OpenAI API Error:', error);
-        console.error('OpenAI API Error:', error.error?.error || error);
-
+        console.error('API Error:', error);
+        
         let errorMessage = 'Sorry, I encountered an error. ';
         
         if (error.status === 401) {
-          errorMessage += 'Invalid API key. Please check your OpenAI API key configuration.';
+          errorMessage += 'Invalid API key. Please check your API key configuration.';
         } else if (error.status === 429) {
           errorMessage += 'Rate limit exceeded. Please try again later.';
         } else if (error.status === 0) {
           errorMessage += 'Network error. Please check your internet connection.';
+        } else if (error.error && error.error.error) {
+          errorMessage += error.error.error;
         } else {
           errorMessage += 'Please try again later.';
         }

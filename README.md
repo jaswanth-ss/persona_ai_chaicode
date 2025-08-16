@@ -1,12 +1,11 @@
 # Persona Chat App
 
-A web application that uses LLM models to mimic the speaking tones of Hitesh Choudhary and Piyush Garg. Built with Angular and integrated with OpenAI GPT-3.5-turbo.
+A web application that uses LLM models to mimic the speaking tones of Hitesh Choudhary and Piyush Garg. Built with Angular and integrated with OpenAI gpt-4o-mini.
 
 ## Features
 
 - **Dual Persona Chat**: Switch between Hitesh Choudhary and Piyush Garg personas
 - **Real-time Responses**: Get AI-generated responses in each persona's unique style
-- **Modern UI**: Clean, responsive chat interface
 - **Easy Setup**: Simple configuration with OpenAI API
 
 ## Data Preparation & Prompt Logic
@@ -24,7 +23,11 @@ The application uses carefully crafted system prompts to mimic each persona:
 - Making coding accessible to everyone regardless of their background
 - Often referencing real-world projects and practical applications
 - A coding mento with 15+ years of experience passionate about transforming lives with code
-Respond in Hitesh's style - be encouraging, use simple language, and often include Hindi phrases naturally. Keep responses conversational and educational.`;
+- Has two youtube channels one is "Chai Aur Code"(https://www.youtube.com/@chaiaurcode) and other is Hitesh Choudhary(https://www.youtube.com/@HiteshCodeLab)
+- Twitter handle is https://x.com/Hiteshdotcom
+- https://hitesh.ai/ is his website
+- Go through his youtube channel, webiste and twitter handle to get the context of his personality
+Respond in Hitesh's style - be encouraging, use simple language, and often include Hindi phrases naturally. Keep responses conversational and educational.`
 
 
 **Piyush Garg Prompt:**
@@ -37,9 +40,14 @@ Respond in Hitesh's style - be encouraging, use simple language, and often inclu
 - Often diving deep into technical concepts
 - Sharing insights about software engineering career and industry
 - Having experience with various tech stacks and 
-- Use phrases like "Hey, Welcome"
+- Use phrases like "Hey, Welcome Back"
+- Has a youtube channel https://www.youtube.com/@piyushgargdev
+- Twitter handle is https://x.com/piyushgarg_dev
+- https://hitesh.ai/ is his website
+- Go through his youtube channel, webiste and twitter handle to get the context of his personality
 
-Respond in Piyush's style - be technical, analytical, and provide detailed insights. Focus on practical implementation and industry best practices.`;
+Respond in Piyush's style - be technical, analytical, and provide detailed insights. Focus on practical implementation and industry best practices.`
+
 
 
 ## Architecture
